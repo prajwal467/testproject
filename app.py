@@ -8,17 +8,12 @@ print("Test 2")
 print(os.getcwd())
 path = os.getcwd()
 
-with open('Models/logistic_model.pkl', 'rb') as f:
+with open('Models/Pickled_LR_Model', 'rb') as f:
     logistic = pickle.load(f)
 
-with open('Models/RF_model.pkl', 'rb') as f:
-    randomforest = pickle.load(f)
-
-with open('Models/svm_clf_model.pkl', 'rb') as f:
-    svm_model = pickle.load(f)
 
 
-def get_predictions(price, Tax, Driver_Age, Licence_Length_Years, req_model):
+def get_predictions(age, sex, cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal, req_model):
     mylist = [Driver_Age, Tax, price, Licence_Length_Years]
     mylist = [float(i) for i in mylist]
     vals = [mylist]
@@ -27,13 +22,7 @@ def get_predictions(price, Tax, Driver_Age, Licence_Length_Years, req_model):
         #print(req_model)
         return logistic.predict(vals)[0]
 
-    elif req_model == 'RandomForest':
-        #print(req_model)
-        return randomforest.predict(vals)[0]
-
-    elif req_model == 'SVM':
-        #print(req_model)
-        return svm_model.predict(vals)[0]
+   
     else:
         return "Cannot Predict"
 
